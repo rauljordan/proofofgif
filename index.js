@@ -3,8 +3,8 @@ import bodyParser from 'body-parser';
 import Blockchain from './blockchain';
 import uuidv4 from 'uuid/v4';
 
-const nodeIdentifier = uuidv4().replace('-', '')
-console.log(nodeIdentifier);
+const nodeIdentifier = uuidv4().replace(/-/g, '')
+console.log(`Your Node Identifier Is: ${nodeIdentifier}`);
 
 const blockchain = new Blockchain()
 
@@ -48,7 +48,7 @@ app.post('/new/transaction', (req, res) => {
     return res.status(500).send('Missing Values');
   }
   const idx = blockchain.newTransaction(sender, recipient, amount);
-  return res.status(200).send(`Transaction Will Be Added to Block {idx}`);
+  return res.status(200).send(`Transaction Will Be Added to Block ${idx}`);
 });
 
 app.listen(3000, () => {

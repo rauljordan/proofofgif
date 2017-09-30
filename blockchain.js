@@ -1,5 +1,6 @@
 import stringify from 'json-stable-stringify';
 import sha256 from 'crypto-js/sha256';
+import CryptoJS from 'crypto-js';
 
 export default class Blockchain {
   constructor() {
@@ -19,7 +20,7 @@ export default class Blockchain {
      */
     const block = {
       index: this.chain.length + 1,
-      timestamp: new Date().getTime() / 1000,
+      timestamp: Math.round(new Date().getTime() / 1000),
       transactions: this.currentTransactions,
       proof,
       previousHash: previousHash ? previousHash : this.hash(this.chain[this.chain.length - 1])
@@ -62,25 +63,25 @@ export default class Blockchain {
     return proof;
   }
 
-  static validProof(lastProof, proof) {
+  validProof(lastProof, proof) {
     /**
      * Validates the proof via sha256. 
      * Does hash(lastProof, proof) contain 4 leading zeros?
      */
     const guess = String(lastProof * proof);
-    const guess_hash = sha256(guess);
+    const guess_hash = sha256(guess).toString(CryptoJS.enc.Hex);
     return guess_hash[0] === '0' && 
       guess_hash[1] === '0' &&
       guess_hash[2] === '0' &&
       guess_hash[3] === '0';
   }
 
-  static hash(block) {
+  hash(block) {
     const blockString = stringify(block);
-    return sha256(blockString);
+    return sha256(blockString).toString(CryptoJS.enc.Hex);
   }
 
-  static lastBlock() {
+  lastBlock() {
     return this.chain[this.chain.length - 1];
   }
 }
