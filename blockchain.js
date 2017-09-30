@@ -6,10 +6,11 @@ export default class Blockchain {
     this.chain = [];
     this.currentTransactions = [];
 
-    this.newBlock(previousHash = 1, proof = 100);
+    // Genesis Block
+    this.newBlock(100, 1);
   }
 
-  newBlock(proof, previousHash = null) {
+  newBlock(proof, previousHash=null) {
     /**
      * Creates a new block for the blockchain
      * @proof: the proof from proof of work
@@ -19,7 +20,7 @@ export default class Blockchain {
     const block = {
       index: this.chain.length + 1,
       timestamp: new Date().getTime() / 1000,
-      transactions: self.currentTransactions,
+      transactions: this.currentTransactions,
       proof,
       previousHash: previousHash ? previousHash : this.hash(this.chain[this.chain.length - 1])
     };
