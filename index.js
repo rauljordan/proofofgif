@@ -51,6 +51,39 @@ app.post('/new/transaction', (req, res) => {
   return res.status(200).send(`Transaction Will Be Added to Block ${idx}`);
 });
 
+app.post('/nodes/register', (req, res) => {
+  const { nodes } = req.body;
+  if (!nodes) {
+    return res.status(500).send('Error: Please Pass in a List of Nodes');
+  }
+  if (!nodes.length) {
+    return res.status(500).send('Error: Please Pass in a List of Nodes');
+  }
+  for (let i = 0; i < nodes.length; i++) {
+    blockchain.registerNode(nodes[i]);
+  }
+  return res.status(200).send({ 
+    message: 'Nodes Have Been Added',  
+    totalNodes: blockchain.nodes,
+  });
+});
+
+app.get('/nodes/resolve', async (req, res) => {
+  const replaced = await blockchain.resolveConflicts();
+  if (replaced) {
+    res.status(200).send({
+      message: 'Our Chain Was Replaced',
+      newChain: blockchain.chain,
+    });
+  }
+  else {
+    res.status(200).send({
+      message: 'Our Chain Stayed the Same',
+      chain: blockchain.chain,
+    });
+  }  
+});
+
 app.listen(3000, () => {
   console.log('Now Listening on Port 3000');
 });

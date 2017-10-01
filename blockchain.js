@@ -1,14 +1,83 @@
 import stringify from 'json-stable-stringify';
 import sha256 from 'crypto-js/sha256';
 import CryptoJS from 'crypto-js';
+import fetch from 'node-fetch';
 
 export default class Blockchain {
+
   constructor() {
     this.chain = [];
     this.currentTransactions = [];
+    this.nodes = new Set();
 
     // Genesis Block
     this.newBlock(100, 1);
+  }
+
+  registerNode(address) {
+    /**
+     * Adds a node to the list of nodes
+     */
+    this.nodes.add(address);
+  }
+
+  validChain(chain) {
+    /**
+     * Determine if a given blockchain is valid
+     */
+    let lastBlock = chain[0];
+    let currentIndex = 1;
+    while (currentIndex < chain.length) {
+      let block = chain[currentIndex];
+      console.log(lastBlock);
+      console.log(block);
+      console.log('\n-----------\n');
+
+      // Check that the hash of the last block is correct
+      if (block.previousHash !== this.hash(lastBlock)) {
+        return false;
+      }
+
+      // Check that the proof of work is correct
+      if (!this.validProof(lastBlock.proof, block.proof)) {
+        return false;
+      }
+
+      lastBlock = block;
+      currentIndex += 1;
+    }
+
+    return true;
+  }
+
+  async resolveConflicts() {
+    /**
+     * This is our consensus algorithm. It resolves conflicts by replacing
+     * the chain with the longest chain in the network
+     * return: true if chain was replaced
+     */
+    const neighbors = this.nodes;
+    let newChain = null;
+
+    // We only look for chains longer than ours
+    let maxLength = this.chain.length;
+    for (let x of neighbors) {
+      const response = await fetch(`${x}/chain`);
+      const neighborChain = await response.json();
+
+      let { length, chain } = neighborChain;
+      if (length > maxLength && this.validChain(chain)) {
+        maxLength = length;
+        newChain = chain;
+      }
+    }
+
+    if (newChain) {
+      this.chain = newChain;
+      return true;
+    }
+
+    return false;
   }
 
   newBlock(proof, previousHash=null) {
