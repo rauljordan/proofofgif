@@ -131,9 +131,15 @@ export default class Blockchain {
     return proof;
   }
 
-  totalMintedVolume() {
+  totalVolumeMined() {
     return this.chain.reduce((prev, curr) => {
-      return prev + curr.amount
+      if (!curr.transactions) {
+        return prev;
+      }
+      const amounts = curr.transactions.reduce((p, c) => {
+        return p + c.amount;
+      }, 0);
+      return prev + amounts;
     }, 0);
   }
 

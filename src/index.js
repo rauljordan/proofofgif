@@ -85,6 +85,14 @@ app.get('/consensus', async (req, res) => {
   }  
 });
 
+app.get('/volume/mined', (req, res) => {
+  const volume = blockchain.totalMintedVolume();
+  return res.status(200).send({
+    message: `Total Volume of Coins Mined is ${volume}`,
+    volume,
+  });
+});
+
 app.listen(3000, () => {
   console.log('Now Listening on Port 3000');
 });
