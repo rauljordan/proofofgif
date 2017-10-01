@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import Blockchain from './blockchain';
 import uuidv4 from 'uuid/v4';
+import path from 'path';
 
 const nodeId = uuidv4().replace(/-/g, '')
 
@@ -12,6 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+app.use(express.static(__dirname + '/../public'));
 
 app.get('/blockchain', (req, res) => {
   const data = {
@@ -82,6 +85,6 @@ app.get('/consensus', async (req, res) => {
   }  
 });
 
-app.listen(3010, () => {
-  console.log('Now Listening on Port 3010');
+app.listen(3000, () => {
+  console.log('Now Listening on Port 3000');
 });

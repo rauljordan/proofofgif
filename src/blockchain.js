@@ -131,6 +131,12 @@ export default class Blockchain {
     return proof;
   }
 
+  totalMintedVolume() {
+    return this.chain.reduce((prev, curr) => {
+      return prev + curr.amount
+    }, 0);
+  }
+
   validProof(lastProof, proof) {
     /**
      * Validates the proof via sha256. 
