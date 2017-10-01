@@ -31,7 +31,6 @@ export default class Blockchain {
       let block = chain[currentIndex];
       console.log(lastBlock);
       console.log(block);
-      console.log('\n-----------\n');
 
       // Check that the hash of the last block is correct
       if (block.previousHash !== this.hash(lastBlock)) {
@@ -62,7 +61,7 @@ export default class Blockchain {
     // We only look for chains longer than ours
     let maxLength = this.chain.length;
     for (let x of neighbors) {
-      const response = await fetch(`${x}/chain`);
+      const response = await fetch(`${x}/blockchain`);
       const neighborChain = await response.json();
 
       let { length, chain } = neighborChain;

@@ -3,8 +3,7 @@ import bodyParser from 'body-parser';
 import Blockchain from './blockchain';
 import uuidv4 from 'uuid/v4';
 
-const nodeIdentifier = uuidv4().replace(/-/g, '')
-console.log(`Your Node Identifier Is: ${nodeIdentifier}`);
+const nodeId = uuidv4().replace(/-/g, '')
 
 const blockchain = new Blockchain()
 
@@ -14,7 +13,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.get('/chain', (req, res) => {
+app.get('/blockchain', (req, res) => {
   const data = {
     chain: blockchain.chain,
     length: blockchain.chain.length
@@ -28,12 +27,11 @@ app.get('/mine', (req, res) => {
   const proof = blockchain.proofOfWork(lastProof);
 
   // Coinbase: we receive a reward for finding the proof
-  // Sender is 0 to signify this node has mined a new coin
-  blockchain.newTransaction('0', nodeIdentifier, 1);
+  blockchain.newTransaction('0', nodeId, 1);
 
   const block = blockchain.newBlock(proof);
   const data = {
-    message: 'New Block Forged',
+    message: 'Block Added to the Chain',
     index: block['index'],
     transactions: block['transactions'],
     proof: block['proof'],
@@ -51,34 +49,34 @@ app.post('/new/transaction', (req, res) => {
   return res.status(200).send(`Transaction Will Be Added to Block ${idx}`);
 });
 
-app.post('/nodes/register', (req, res) => {
+app.post('/node/register', (req, res) => {
   const { nodes } = req.body;
   if (!nodes) {
-    return res.status(500).send('Error: Please Pass in a List of Nodes');
+    return res.status(500).send('Error: Node List Required');
   }
   if (!nodes.length) {
-    return res.status(500).send('Error: Please Pass in a List of Nodes');
+    return res.status(500).send('Error: Node List Required');
   }
   for (let i = 0; i < nodes.length; i++) {
     blockchain.registerNode(nodes[i]);
   }
   return res.status(200).send({ 
-    message: 'Nodes Have Been Added',  
+    message: 'New Nodes Added',  
     totalNodes: blockchain.nodes,
   });
 });
 
-app.get('/nodes/resolve', async (req, res) => {
+app.get('/consensus', async (req, res) => {
   const replaced = await blockchain.resolveConflicts();
   if (replaced) {
     res.status(200).send({
-      message: 'Our Chain Was Replaced',
+      message: 'A New Blockchain Has Been Selected',
       newChain: blockchain.chain,
     });
   }
   else {
     res.status(200).send({
-      message: 'Our Chain Stayed the Same',
+      message: 'No New Blockchain',
       chain: blockchain.chain,
     });
   }  
