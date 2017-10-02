@@ -39,6 +39,7 @@ app.get('/mine', (req, res) => {
     transactions: block['transactions'],
     proof: block['proof'],
     previousHash: block['previousHash'],
+    timestamp: block['timestamp'],
   };
   return res.status(200).send(data);
 });

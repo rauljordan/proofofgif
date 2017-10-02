@@ -2,10 +2,68 @@
   <head>
     <title>My Toy Blockchain</title>
     <link rel="stylesheet" href="styles.css"/>
+    <script src="jquery.min.js"></script>
+    <script src="app.js"></script>
   </head>
   <body>
     <div>
-      Welcome to My Toy Blockchain!
+      <div class="stars"></div>
+      <div class="twinkling"></div>
+      <div class="clouds"></div>
+      <div class="navbar">
+        <ul>
+          <li>Connected Network Nodes</li>
+          <li>121.121.11.1</li>
+          <li>194.23.22.222</li>
+          <li>323.88.23.121</li>
+          <li>991.23.22.188</li>
+          <li>127.198.1.1</li>
+          <li>121.121.11.1</li>
+          <li>194.23.22.222</li>
+          <li>121.121.11.1</li>
+          <li>194.23.22.222</li>
+          <li>991.23.22.188</li>
+          <li>127.198.1.1</li>
+          <li>121.121.11.1</li>
+      </div>
+
+      <div class="center-container">
+        <h1>Proof-of-GIF Blockchain</h1>
+        <p>Contribute to a decentralized, toy blockchain and start mining some ToyCoin today!</p>
+        <div class="mining-box">
+          <div>NodeID 0x910281283812881231</div>
+          <a id="start-mining" class="primary-button" href="#">
+            Start Mining
+          </a>
+        </div>
+      </div>
+
+      <div id="blockchain" class="blockchain">
+        <div class="block-preview">
+          Mining Block...
+        </div>
+      </div>
+
+      <div class="footer">
+        <div><a href="https://rauljordan.com" target="_blank">Made By Raul E. Jordan</a></div>
+      </div>
+
+      <div id="connector-template" style="display:none;">
+        <div class="connector">
+          <div></div>
+        </div>
+      </div>
+      <div id="block-template" style="display:none;">
+        <div class="block">
+          <div class="item"><span>Block Hash</span><span class="previous-hash">0x10928381823</span></div>
+          <div class="item"><span>Timestamp</span><span class="timestamp">Oct 1, 2017 8:00PM GMT</span></div>
+          <div class="item"><span>Nonce</span><span class="proof">1283123</span></div>
+          <div class="data item">
+            https://giphy.com/catsmiling.gif
+          </div>
+        </div>
+      </div>
+
     </div>
   </body>
 </html>
