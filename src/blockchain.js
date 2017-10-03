@@ -79,7 +79,7 @@ export default class Blockchain {
     return false;
   }
 
-  newBlock(proof, previousHash=null) {
+  newBlock(proof, gif, previousHash=null) {
     /**
      * Creates a new block for the blockchain
      * @proof: the proof from proof of work
@@ -90,6 +90,7 @@ export default class Blockchain {
       index: this.chain.length + 1,
       timestamp: Math.round(new Date().getTime() / 1000),
       transactions: this.currentTransactions,
+      data: gif,
       proof,
       previousHash: previousHash ? previousHash : this.hash(this.chain[this.chain.length - 1])
     };

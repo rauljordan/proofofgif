@@ -5,6 +5,13 @@ body {
   margin: 0;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
 .navbar {
   background-color: black;
   color: white;
@@ -26,6 +33,15 @@ body {
   margin-left: 20px;
 }
 
+.connecting {
+  border-right: 2px solid white;
+  padding-right: 15px;
+}
+
+.connecting-text {
+  display: inline-block;
+}
+
 .center-container {
   padding-top: 0px;
   margin: 0 auto;
@@ -34,7 +50,7 @@ body {
 
 .mining-box {
   background-color: white;
-  width: 450px;
+  width: 600px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -42,22 +58,40 @@ body {
 
 .mining-box div {
   font-size: 20px;
-  padding-left: 20px;
+}
+
+.mining-text {
+  background-color: #E1E8ED;
   padding-top: 10px;
   padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mining-input {
+  padding-top: 3px;
+}
+
+.mining-input input {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border: none;
+  width: 300px;
 }
 
 h1 {
   font-weight: 300;
-  font-size: 50px;
-  margin-bottom: 0px;
+  font-size: 40px;
+  margin-bottom: -10px;
   color: white;
 }
 
 p {
   color: white;
   font-size: 20px;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
 }
 
 .primary-button {
@@ -69,15 +103,24 @@ p {
   color: black;
 }
 
+.loading-blockchain {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
 .blockchain {
   margin-left: auto;
   margin-right: auto;
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-flow: row nowrap;
   overflow-x: scroll;
   justify-content: flex-start;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .block {
@@ -85,6 +128,11 @@ p {
   padding: 20px;
   width: 250px;
   border: 2px solid #ADFF2F;
+}
+
+.block-gif {
+  width: 100%;
+  height: 160px;
 }
 
 .connector {
@@ -102,13 +150,42 @@ p {
 .block-preview {
   border: 3px dashed #ADFF2F;
   background-color: none;
-  padding: 20px;
+  padding: 20px 20px 25px 20px;
   width: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 30px;
   color: white;
+  position: relative;
+}
+
+.block-mined {
+  border: 3px dashed #ADFF2F;
+  background-color: none;
+  padding: 20px 20px 25px 20px;
+  width: 250px;
+  font-size: 30px;
+  color: white;
+  position: relative;
+}
+
+.preview-header {
+  text-align: center;
+}
+
+.pickaxe {
+  text-align: center;
+}
+
+.nonce-loader {
+  text-align: center;
+  font-size: 18px;
+}
+
+.nonce-loader span {
+  padding-left: 10px;
+}
+
+.pickaxe img {
+  width: 40%;
 }
 
 .footer {
@@ -232,6 +309,120 @@ p {
   -webkit-animation: move-clouds-back 200s linear infinite;
   animation: move-clouds-back 200s linear infinite;
 }
+
+.loading-circle {
+  display: inline-block;
+  position: relative;
+  margin-bottom: -5px;
+  margin-right: 30px;
+}
+
+.connected-circle {
+  position: relative;
+  margin-bottom: -5px;
+  width: 20px;
+  margin-right: 10px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: green;
+  display: inline-block;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.double1, .double2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(255, 0, 0, 1);
+  opacity: 0.6;
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 0 auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
 
 @media only screen and (max-width: 800px) {
   .mining-box {

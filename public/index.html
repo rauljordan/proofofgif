@@ -12,7 +12,7 @@
       <div class="clouds"></div>
       <div class="navbar">
         <ul>
-          <li>Connected Network Nodes</li>
+          <li class="connecting"><div class="loading-circle"><div class="double1"></div><div class="double2"></div></div><div class="connected-circle hidden"></div><div class="connecting-text">Connecting...</div></li>
           <li>121.121.11.1</li>
           <li>194.23.22.222</li>
           <li>323.88.23.121</li>
@@ -28,20 +28,47 @@
       </div>
 
       <div class="center-container">
-        <h1>Proof-of-GIF Blockchain</h1>
-        <p>Contribute to a decentralized, toy blockchain and start mining some ToyCoin today!</p>
+        <h1>Proof-of-GIF</h1>
+        <p>Record a GIF forever in a decentralized, proof-of-work blockchain demo</p>
         <div class="mining-box">
-          <div>NodeID 0x910281283812881231</div>
+          <div class="mining-text">
+            Add a Gif Url
+          </div> 
+          <div class="mining-input">
+            <input type="text" id="gif-input" value="http://gph.to/2xVREBM" autofocus="true"/>
+          </div>
           <a id="start-mining" class="primary-button" href="#">
             Start Mining
           </a>
         </div>
       </div>
 
-      <div id="blockchain" class="blockchain">
+      <div id="loading-blockchain" class="loading-blockchain hidden">
         <div class="block-preview">
-          Mining Block...
+          <div class="preview-header">
+            Mining Block...
+          </div>
+          <div class="pickaxe">
+            <img src="pickaxe.png"/>
+          </div>
+          <div class="nonce-loader hidden">
+            Proof Attempt<span class="nonce-counter">0</span>
+          </div>
+          <div class="nonce-start-text">
+            Starting Proof of Work...
+          </div>
         </div>
+        <div class="block-mined hidden">
+          <div class="preview-header">
+            Block Added to the Chain! Loading Blockchain...
+          </div>
+          <div class="pickaxe">
+            <img src="pickaxe.png"/>
+          </div>
+        </div>
+      </div>
+
+      <div id="blockchain" class="blockchain">
       </div>
 
       <div class="footer">
@@ -55,12 +82,12 @@
       </div>
       <div id="block-template" style="display:none;">
         <div class="block">
+          <div class="item">
+            <img class="block-gif" src="hero.gif"/>
+          </div>
           <div class="item"><span>Block Hash</span><span class="previous-hash">0x10928381823</span></div>
           <div class="item"><span>Timestamp</span><span class="timestamp">Oct 1, 2017 8:00PM GMT</span></div>
           <div class="item"><span>Nonce</span><span class="proof">1283123</span></div>
-          <div class="data item">
-            https://giphy.com/catsmiling.gif
-          </div>
         </div>
       </div>
 

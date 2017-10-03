@@ -24,24 +24,26 @@ app.get('/blockchain', (req, res) => {
   return res.status(200).send(data);
 });
 
-app.get('/mine', (req, res) => {
+app.post('/mine', (req, res) => {
+  const { gif } = req.body;
   const lastBlock = blockchain.lastBlock();
   const lastProof = lastBlock.proof;
   const proof = blockchain.proofOfWork(lastProof);
 
-  // Coinbase: we receive a reward for finding the proof
+  // // Coinbase: we receive a reward for finding the proof
   blockchain.newTransaction('0', nodeId, 1);
 
-  const block = blockchain.newBlock(proof);
-  const data = {
+  const block = blockchain.newBlock(proof, gif);
+  const blockData = {
     message: 'Block Added to the Chain',
     index: block['index'],
     transactions: block['transactions'],
     proof: block['proof'],
     previousHash: block['previousHash'],
     timestamp: block['timestamp'],
+    data: gif,
   };
-  return res.status(200).send(data);
+  return res.status(200).send(blockData);
 });
 
 app.post('/new/transaction', (req, res) => {
