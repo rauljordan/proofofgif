@@ -103,6 +103,38 @@ p {
   color: black;
 }
 
+#gif-gallery {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.gif {
+  width: 200px;
+  margin: 20px;
+}
+
+.gif-link {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.gif-link a {
+  color: white;
+  font-size: 20px;
+}
+
+.gif-link i {
+  padding-left: 10px;
+}
+
+.gif img {
+  width: 200px;
+  height: 200px;
+}
+
 .loading-blockchain {
   margin-left: auto;
   margin-right: auto;
@@ -120,14 +152,28 @@ p {
   flex-flow: row nowrap;
   overflow-x: scroll;
   justify-content: flex-start;
-  margin-top: 40px;
+  margin-top: 25px;
 }
 
 .block {
   background-color: white;
-  padding: 20px;
+  padding: 0px;
   width: 250px;
   border: 2px solid #ADFF2F;
+}
+
+.block-field {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px;
+  color: black;
+}
+
+.well {
+  padding: 5px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  background-color: #E1E8ED;
 }
 
 .block-gif {
@@ -190,7 +236,7 @@ p {
 
 .footer {
   position: fixed;
-  bottom: 40px;
+  bottom: 15px;
   left: 50%;
   margin-left: -80px;
   width: 200px;

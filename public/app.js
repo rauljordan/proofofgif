@@ -17,7 +17,7 @@ var App = {
         $('.connected-circle').removeClass('hidden');
         $('.connecting-text').text(`Connected as Node 192.121.11.12`);
       });
-    }, 2000);
+    }, 1000);
     this.addListeners();
   },
   addListeners() {
@@ -26,6 +26,7 @@ var App = {
   },
   mine(event) {
     event.preventDefault();
+    $('#gif-gallery').addClass('hidden');
     $('#loading-blockchain').removeClass('hidden');
     $('#blockchain').addClass('hidden');
 
@@ -44,33 +45,39 @@ var App = {
         $('.nonce-start-text').addClass('hidden');
         $('.nonce-loader').removeClass('hidden')
 
-        for (let count = 0; count < 12121; count++) {
+        for (let count = 0; count < res.proof; count++) {
           (function(num) {
             setTimeout(function() {
               $('.nonce-counter').text(num);
-              if (count === 12121 - 1) {
+              if (count === res.proof - 1) {
                 $('.block-preview').addClass('hidden')
                 $('.block-mined').removeClass('hidden');
 
                 setTimeout(function() {
                   $('#loading-blockchain').addClass('hidden');
                   $('#blockchain').removeClass('hidden');
+
+                  // Also reset all the other classes
+                  $('.block-preview').removeClass('hidden');
+                  $('.block-mined').addClass('hidden');
+                  $('.nonce-start-text').removeClass('hidden');
+                  $('.nonce-loader').addClass('hidden')
                 }, 2000);
               }
-            }, 10)
+            }, 5);
           })(count);
         }
-
-        // $('#loading-blockchain').addClass('hidden');
-        // $('#blockchain').removeClass('hidden');
 
         var chain = $('#blockchain');
         var connector = $('#connector-template');
         var block = $('#block-template');
 
-        block.find('.previous-hash').text(res.previousHash);
-        block.find('.timestamp').text(res.timestamp);
-        block.find('.proof').text(res.proof);
+
+        console.log(res);
+
+        block.find('#hash').text(res.previousHash);
+        block.find('#timestamp').text(res.timestamp);
+        block.find('#proof').text(res.proof);
         block.find('.block-gif').attr('src', res.data);
 
         chain.append(connector.html());
