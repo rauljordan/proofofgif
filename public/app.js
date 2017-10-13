@@ -36,9 +36,11 @@ var App = {
   },
   copy(event) {
     event.preventDefault();
-    console.log(event.target.href);
+    var ipt = document.getElementById('gif-input');
+    ipt.value = event.target.href;
   },
   mine(event) {
+    console.log(event);
     event.preventDefault();
     $('#gif-gallery').addClass('hidden');
     $('#loading-blockchain').removeClass('hidden');
