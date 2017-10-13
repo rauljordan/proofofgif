@@ -96,6 +96,6 @@ app.get('/volume/mined', (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log('Now Listening on Port 3000');
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Now Listening Port ' + process.env.PORT || 3000);
 });
