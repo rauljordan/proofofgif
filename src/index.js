@@ -4,7 +4,7 @@ import Blockchain from './blockchain';
 import uuidv4 from 'uuid/v4';
 import path from 'path';
 
-const nodeId = uuidv4().replace(/-/g, '')
+const nodeId = uuidv4();
 
 const blockchain = new Blockchain()
 
@@ -56,18 +56,10 @@ app.post('/new/transaction', (req, res) => {
 });
 
 app.post('/node/register', (req, res) => {
-  const { nodes } = req.body;
-  if (!nodes) {
-    return res.status(500).send('Error: Node List Required');
-  }
-  if (!nodes.length) {
-    return res.status(500).send('Error: Node List Required');
-  }
-  for (let i = 0; i < nodes.length; i++) {
-    blockchain.registerNode(nodes[i]);
-  }
+  blockchain.registerNode(nodeId);
   return res.status(200).send({ 
     message: 'New Nodes Added',  
+    nodeAddress: nodeId,
     totalNodes: blockchain.nodes,
   });
 });

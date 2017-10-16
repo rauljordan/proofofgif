@@ -38,6 +38,10 @@ button:focus {
   padding-right: 15px;
 }
 
+.current-nodes {
+  display: none;
+}
+
 .connecting-text {
   display: inline-block;
 }

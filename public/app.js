@@ -6,8 +6,7 @@ var App = {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ nodes: ['192.121.11.12'] })
+        }
       })
       .then((res) => {
         return res.json();
@@ -15,7 +14,18 @@ var App = {
       .then((res) => {
         $('.loading-circle').hide();
         $('.connected-circle').removeClass('hidden');
-        $('.connecting-text').text(`Connected as Node 192.121.11.12`);
+        $('.connecting-text').text(`Connected as Node ${res.nodeAddress}`);
+        $('.loading-all-nodes').hide();
+
+        $('.current-nodes').removeClass('hidden');
+
+        const otherNodes = res.totalNodes.filter(function(item) {
+          return item !== res.nodeAddress;
+        });
+
+        for (let i = 0; i < otherNodes.length; i++) {
+          $('.nodes-list').append(`<li>${otherNodes[i]}</li>`);
+        }
       });
     }, 1000);
     this.addListeners();
@@ -30,7 +40,6 @@ var App = {
     gif2.addEventListener('click', this.copy);
     gif3.addEventListener('click', this.copy);
     gif4.addEventListener('click', this.copy);
-
 
     btn.addEventListener('click', this.mine);
   },
