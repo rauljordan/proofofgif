@@ -29,8 +29,6 @@ export default class Blockchain {
     let currentIndex = 1;
     while (currentIndex < chain.length) {
       let block = chain[currentIndex];
-      console.log(lastBlock);
-      console.log(block);
 
       // Check that the hash of the last block is correct
       if (block.previousHash !== this.hash(lastBlock)) {
@@ -163,6 +161,7 @@ export default class Blockchain {
   }
 
   lastBlock() {
-    return this.chain[this.chain.length - 1];
+    const res =  this.chain.slice(-1)[0];
+    return res;
   }
 }

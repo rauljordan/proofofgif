@@ -1,10 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import Blockchain from './blockchain';
-import uuidv4 from 'uuid/v4';
+import Random from './random';
 import path from 'path';
 
-const nodeId = uuidv4();
+const nodeId = Random.id();
 
 const blockchain = new Blockchain()
 
@@ -26,7 +26,7 @@ app.get('/blockchain', (req, res) => {
 
 app.post('/mine', (req, res) => {
   const { gif } = req.body;
-  const lastBlock = blockchain.lastBlock();
+  const lastBlock = blockchain.chain.slice(-1)[0];
   const lastProof = lastBlock.proof;
   const proof = blockchain.proofOfWork(lastProof);
 

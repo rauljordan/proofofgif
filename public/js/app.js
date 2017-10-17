@@ -20,8 +20,7 @@ var App = {
         $('.current-nodes').removeClass('hidden');
 
         const otherNodes = res.totalNodes.filter(function(item) {
-          //return item !== res.nodeAddress;
-          return item !== 0;
+          return item !== res.nodeAddress;
         });
 
         for (let i = 0; i < otherNodes.length; i++) {
