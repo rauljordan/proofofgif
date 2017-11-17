@@ -9,6 +9,7 @@ const nodeId = Random.id();
 const blockchain = new Blockchain()
 
 const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
@@ -57,8 +58,8 @@ app.post('/new/transaction', (req, res) => {
 
 app.post('/node/register', (req, res) => {
   blockchain.registerNode(nodeId);
-  return res.status(200).send({ 
-    message: 'New Nodes Added',  
+  return res.status(200).send({
+    message: 'New Nodes Added',
     nodeAddress: nodeId,
     totalNodes: blockchain.nodes,
   });
@@ -77,7 +78,7 @@ app.get('/consensus', async (req, res) => {
       message: 'No New Blockchain',
       chain: blockchain.chain,
     });
-  }  
+  }
 });
 
 app.get('/volume/mined', (req, res) => {
@@ -89,5 +90,5 @@ app.get('/volume/mined', (req, res) => {
 });
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Now Listening Port ' + process.env.PORT || 3000);
+  console.log('Now Listening On Port ' + process.env.PORT || 3000);
 });

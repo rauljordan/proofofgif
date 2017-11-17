@@ -11,7 +11,7 @@ export default class Blockchain {
     this.nodes = new Set();
 
     // Genesis Block
-    this.newBlock(100, 1);
+    this.newBlock(100, 'no gif here');
   }
 
   registerNode(address) {
@@ -106,7 +106,7 @@ export default class Blockchain {
      * @sender: address of the sender
      * @recipient: address of the recipient
      * @amount: amount being sent
-     * return: index of the block that will hold this transaction 
+     * return: index of the block that will hold this transaction
      */
     this.currentTransactions.push({
       sender,
@@ -144,12 +144,12 @@ export default class Blockchain {
 
   validProof(lastProof, proof) {
     /**
-     * Validates the proof via sha256. 
+     * Validates the proof via sha256.
      * Does hash(lastProof, proof) contain 4 leading zeros?
      */
     const guess = String(lastProof * proof);
     const guess_hash = sha256(guess).toString(CryptoJS.enc.Hex);
-    return guess_hash[0] === '0' && 
+    return guess_hash[0] === '0' &&
       guess_hash[1] === '0' &&
       guess_hash[2] === '0' &&
       guess_hash[3] === '0';
